@@ -7,8 +7,8 @@
 
 typedef struct ASTNode
 {
-    char nodeType[30];      // Assignment, If, While, Identifier, etc.
-    char value[30];         // Variable name, literal value, operator
+    char nodeType[50];      // Assignment, If, While, Identifier, etc.
+    char value[100];         // Variable name, literal value, operator
 
     struct ASTNode *left;
     struct ASTNode *right;
@@ -18,9 +18,10 @@ typedef struct ASTNode
 
 /* Function declarations */
 
-ASTNode *createNode(char *nodeType, char *value,
-                    ASTNode *left, ASTNode *right);
-
+ASTNode *createNode(const char *nodeType,
+                    const char *value,
+                    ASTNode *left,
+                    ASTNode *right);
 void printAST(ASTNode *root, int level);
 
 void freeAST(ASTNode *root);
