@@ -72,7 +72,11 @@ type
     ;
 
 expression
-    : expression LT expression
+    : expression OR expression
+    | expression AND expression
+    | NOT expression
+
+    | expression LT expression
     | expression GT expression
     | expression LE expression
     | expression GE expression
@@ -84,7 +88,7 @@ expression
     | expression MULTIPLY expression
     | expression DIVIDE expression
     | expression MOD expression
-    
+
     | LPAREN expression RPAREN
     | ID
     | INT_LITERAL

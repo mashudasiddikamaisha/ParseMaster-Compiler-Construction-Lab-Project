@@ -1,0 +1,12 @@
+int x;
+int y;
+bool flag;
+
+x = 10;
+y = 20;
+flag = true;
+
+print x < y && flag;
+print x > y || flag;
+print !flag;
+print !(x == y);
