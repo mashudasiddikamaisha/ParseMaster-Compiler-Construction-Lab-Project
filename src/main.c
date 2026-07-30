@@ -1,9 +1,16 @@
 #include <stdio.h>
 
-extern int yylex();
+extern int yyparse(void);
 
 int main()
 {
-    yylex();
+    printf("Parsing started...\n");
+
+    if (yyparse() == 0)
+    {
+        printf("Program parsed successfully!\n");
+    }
+    printf("Parsing completed.\n");
+
     return 0;
 }

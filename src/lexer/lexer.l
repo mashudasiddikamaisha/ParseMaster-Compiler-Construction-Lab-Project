@@ -1,8 +1,7 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
-
-/* parser.tab.h will be added later */
+#include "parser.tab.h"
 %}
 
 %option noyywrap
@@ -18,52 +17,52 @@ MULTI_COMMENT      "/*"([^*]|\*+[^*/])*\*+"/"
 
 %%
 
-"int"           { printf("KEYWORD: int\n"); }
-"float"         { printf("KEYWORD: float\n"); }
-"bool"          { printf("KEYWORD: bool\n"); }
+"int"           { return INT; }
+"float"         { return FLOAT; }
+"bool"          { return BOOL; }
 
-"if"            { printf("KEYWORD: if\n"); }
-"else"          { printf("KEYWORD: else\n"); }
-"while"         { printf("KEYWORD: while\n"); }
-"print"         { printf("KEYWORD: print\n"); }
+"if"            { return IF; }
+"else"          { return ELSE; }
+"while"         { return WHILE; }
+"print"         { return PRINT; }
 
-"true"          { printf("TRUE\n"); }
-"false"         { printf("FALSE\n"); }
+"true"          { return TRUE;}
+"false"         { return FALSE; }
 
-{FLOATNUM}      { printf("FLOAT_LITERAL: %s\n", yytext); }
-{INTNUM}        { printf("INT_LITERAL: %s\n", yytext); }
+{FLOATNUM}      { return FLOAT_LITERAL; }
+{INTNUM}        { return INT_LITERAL; }
 
-{ID}            { printf("IDENTIFIER: %s\n", yytext); }
+{ID}            { return ID; }
 {SINGLE_COMMENT}   ;
 
 {MULTI_COMMENT}    ;
 
-"+"             { printf("PLUS\n"); }
-"-"             { printf("MINUS\n"); }
-"*"             { printf("MULTIPLY\n"); }
-"/"             { printf("DIVIDE\n"); }
-"%"             { printf("MOD\n"); }
+"+"             { return PLUS; }
+"-"             { return MINUS; }
+"*"             { return MULTIPLY; }
+"/"             { return DIVIDE; }
+"%"             { return MOD; }
 
-"=="            { printf("EQ\n"); }
-"!="            { printf("NE\n"); }
-"<="            { printf("LE\n"); }
-">="            { printf("GE\n"); }
-"<"             { printf("LT\n"); }
-">"             { printf("GT\n"); }
+"=="            { return EQ; }
+"!="            { return NE; }
+"<="            { return LE; }
+">="            { return GE; }
+"<"             { return LT; }
+">"             { return GT; }
 
-"&&"            { printf("AND\n"); }
-"||"            { printf("OR\n"); }
-"!"             { printf("NOT\n"); }
+"&&"            { return AND; }
+"||"            { return OR; }
+"!"             { return NOT; }
 
-"="             { printf("ASSIGN\n"); }
+"="             { return ASSIGN; }
 
-";"             { printf("SEMICOLON\n"); }
+";"             { return SEMICOLON; }
 
-"("             { printf("LPAREN\n"); }
-")"             { printf("RPAREN\n"); }
+"("             { return LPAREN; }
+")"             { return RPAREN; }
 
-"{"             { printf("LBRACE\n"); }
-"}"             { printf("RBRACE\n"); }
+"{"             { return LBRACE; }
+"}"             { return RBRACE; }
 
 [ \t\r\n]+      ;
 

@@ -1,15 +1,19 @@
 CC = gcc
 LEX = flex
+YACC = bison
 
 TARGET = compiler
 
 all: $(TARGET)
 
-$(TARGET): lex.yy.c src/main.c
-	$(CC) lex.yy.c src/main.c -lfl -o $(TARGET)
+$(TARGET): parser.tab.c lex.yy.c src/main.c
+	$(CC) parser.tab.c lex.yy.c src/main.c -lfl -o $(TARGET)
 
-lex.yy.c: src/lexer/lexer.l
+parser.tab.c parser.tab.h: src/parser/parser.y
+	$(YACC) -d src/parser/parser.y
+
+lex.yy.c: src/lexer/lexer.l parser.tab.h
 	$(LEX) src/lexer/lexer.l
 
 clean:
-	rm -f $(TARGET) lex.yy.c
+	rm -f $(TARGET) lex.yy.c parser.tab.c parser.tab.h
