@@ -51,6 +51,9 @@ statement
     : declaration
     | assignment
     | print_statement
+    | if_statement
+    | if_else_statement
+    | while_statement
     ;
 
 declaration
@@ -63,6 +66,22 @@ assignment
 
 print_statement
     : PRINT expression SEMICOLON
+    ;
+
+block
+    : LBRACE statement_list RBRACE
+    ;
+
+if_statement
+    : IF LPAREN expression RPAREN block
+    ;
+
+if_else_statement
+    : IF LPAREN expression RPAREN block ELSE block
+    ;
+
+while_statement
+    : WHILE LPAREN expression RPAREN block
     ;
 
 type
