@@ -4,6 +4,7 @@
 
 int yylex(void);
 void yyerror(const char *s);
+extern int yylineno;
 %}
 
 /* ---------- TOKENS ---------- */
@@ -54,6 +55,10 @@ statement
     | if_statement
     | if_else_statement
     | while_statement
+    | error SEMICOLON
+      {
+          yyerrok;
+      }
     ;
 
 declaration
@@ -120,5 +125,5 @@ expression
 
 void yyerror(const char *s)
 {
-    printf("Syntax Error: %s\n", s);
+    printf("Syntax Error at line %d: %s\n", yylineno, s);
 }
