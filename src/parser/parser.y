@@ -64,7 +64,7 @@ assignment
 print_statement
     : PRINT expression SEMICOLON
     ;
-    
+
 type
     : INT
     | FLOAT
@@ -72,11 +72,19 @@ type
     ;
 
 expression
-    : expression PLUS expression
+    : expression LT expression
+    | expression GT expression
+    | expression LE expression
+    | expression GE expression
+    | expression EQ expression
+    | expression NE expression
+
+    | expression PLUS expression
     | expression MINUS expression
     | expression MULTIPLY expression
     | expression DIVIDE expression
     | expression MOD expression
+    
     | LPAREN expression RPAREN
     | ID
     | INT_LITERAL
