@@ -57,6 +57,7 @@ statement
     | while_statement
     | error SEMICOLON
       {
+          printf("Recovered from syntax error at line %d\n", yylineno);
           yyerrok;
       }
     ;
