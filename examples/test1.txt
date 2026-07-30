@@ -1,3 +1,11 @@
-int
-float
-bool
+int x;
+float y;
+bool flag;
+
+x = 10;
+y = 3.14;
+flag = true;
+
+if (x >= 10) {
+    print x;
+}
