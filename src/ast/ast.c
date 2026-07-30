@@ -5,8 +5,10 @@
 #include "ast.h"
 
 /* Create a new AST node */
-ASTNode *createNode(char *nodeType, char *value,
-                    ASTNode *left, ASTNode *right)
+ASTNode *createNode(const char *nodeType,
+                    const char *value,
+                    ASTNode *left,
+                    ASTNode *right)                    
 {
     ASTNode *newNode = (ASTNode *)malloc(sizeof(ASTNode));
 
