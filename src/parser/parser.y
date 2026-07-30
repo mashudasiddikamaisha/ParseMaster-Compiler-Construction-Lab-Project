@@ -50,6 +50,7 @@ statement_list
 statement
     : declaration
     | assignment
+    | print_statement
     ;
 
 declaration
@@ -60,6 +61,10 @@ assignment
     : ID ASSIGN expression SEMICOLON
     ;
 
+print_statement
+    : PRINT expression SEMICOLON
+    ;
+    
 type
     : INT
     | FLOAT
@@ -67,7 +72,13 @@ type
     ;
 
 expression
-    : ID
+    : expression PLUS expression
+    | expression MINUS expression
+    | expression MULTIPLY expression
+    | expression DIVIDE expression
+    | expression MOD expression
+    | LPAREN expression RPAREN
+    | ID
     | INT_LITERAL
     | FLOAT_LITERAL
     | TRUE
