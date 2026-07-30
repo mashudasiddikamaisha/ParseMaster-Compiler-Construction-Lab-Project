@@ -1,11 +1,19 @@
 int x;
-float y;
+int y;
 bool flag;
 
 x = 10;
-y = 3.14;
+y = 0;
 flag = true;
 
-if (x >= 10) {
+// Sum numbers
+while (x > 0) {
+    y = y + x;
+    x = x - 1;
+}
+
+if (flag == true) {
+    print y;
+} else {
     print x;
 }

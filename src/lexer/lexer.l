@@ -10,9 +10,11 @@
 LETTER      [a-zA-Z]
 DIGIT       [0-9]
 
-ID          {LETTER}({LETTER}|{DIGIT}|_)*
+ID          ({LETTER}|_)(({LETTER}|{DIGIT}|_))*
 INTNUM      {DIGIT}+
 FLOATNUM    {DIGIT}+"."{DIGIT}+
+SINGLE_COMMENT     "//".*
+MULTI_COMMENT      "/*"([^*]|\*+[^*/])*\*+"/"
 
 %%
 
@@ -25,13 +27,16 @@ FLOATNUM    {DIGIT}+"."{DIGIT}+
 "while"         { printf("KEYWORD: while\n"); }
 "print"         { printf("KEYWORD: print\n"); }
 
-"true"          { printf("BOOL: true\n"); }
-"false"         { printf("BOOL: false\n"); }
+"true"          { printf("TRUE\n"); }
+"false"         { printf("FALSE\n"); }
 
-{FLOATNUM}      { printf("FLOAT: %s\n", yytext); }
-{INTNUM}        { printf("INTEGER: %s\n", yytext); }
+{FLOATNUM}      { printf("FLOAT_LITERAL: %s\n", yytext); }
+{INTNUM}        { printf("INT_LITERAL: %s\n", yytext); }
 
 {ID}            { printf("IDENTIFIER: %s\n", yytext); }
+{SINGLE_COMMENT}   ;
+
+{MULTI_COMMENT}    ;
 
 "+"             { printf("PLUS\n"); }
 "-"             { printf("MINUS\n"); }
@@ -39,13 +44,12 @@ FLOATNUM    {DIGIT}+"."{DIGIT}+
 "/"             { printf("DIVIDE\n"); }
 "%"             { printf("MOD\n"); }
 
-"=="            { printf("EQUAL\n"); }
-"!="            { printf("NOT EQUAL\n"); }
-"<="            { printf("LESS EQUAL\n"); }
-">="            { printf("GREATER EQUAL\n"); }
-
-"<"             { printf("LESS THAN\n"); }
-">"             { printf("GREATER THAN\n"); }
+"=="            { printf("EQ\n"); }
+"!="            { printf("NE\n"); }
+"<="            { printf("LE\n"); }
+">="            { printf("GE\n"); }
+"<"             { printf("LT\n"); }
+">"             { printf("GT\n"); }
 
 "&&"            { printf("AND\n"); }
 "||"            { printf("OR\n"); }
@@ -63,6 +67,8 @@ FLOATNUM    {DIGIT}+"."{DIGIT}+
 
 [ \t\r\n]+      ;
 
-.               { printf("LEXICAL ERROR: %s\n", yytext); }
+. {
+    printf("LEXICAL ERROR: Invalid character '%s'\n", yytext);
+}
 
 %%
