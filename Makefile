@@ -1,6 +1,15 @@
-all:
-	flex -o lexer.c src/lexer/lexer.l
-	gcc lexer.c src/main.c -lfl -o compiler
+CC = gcc
+LEX = flex
+
+TARGET = compiler
+
+all: $(TARGET)
+
+$(TARGET): lex.yy.c src/main.c
+	$(CC) lex.yy.c src/main.c -lfl -o $(TARGET)
+
+lex.yy.c: src/lexer/lexer.l
+	$(LEX) src/lexer/lexer.l
 
 clean:
-	rm -f compiler lexer.c
+	rm -f $(TARGET) lex.yy.c
