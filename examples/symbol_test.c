@@ -10,19 +10,24 @@ int main()
     initSymbolTable(&table);
 
     // insert some variables
+    
     insertSymbol(&table,
-                 "x",
-                 "int");
-
-
-    insertSymbol(&table,
-                 "y",
-                 "float");
-
+             "x",
+             "int",
+             1,
+             "global");
 
     insertSymbol(&table,
-                 "name",
-                 "string");
+             "y",
+             "float",
+             5,
+             "global");
+
+    insertSymbol(&table,
+             "name",
+             "string",
+             10,
+             "local");             
 
     // display symbol table
 

@@ -6,9 +6,7 @@ typedef struct Symbol
 {
     char name[50];
     char type[20];
-    int line;
-    char scope[20];
-    
+
 } Symbol;
 
 typedef struct SymbolTable
@@ -24,9 +22,8 @@ void initSymbolTable(SymbolTable *table);
 
 void insertSymbol(SymbolTable *table,
                   char name[],
-                  char type[],
-                  int line,
-                  char scope[]);                  
+                  char type[]);
+
 void printSymbolTable(SymbolTable *table);
 
 
