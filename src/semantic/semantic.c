@@ -191,7 +191,7 @@ void analyzeNode(ASTNode *node, SymbolTable *table)
     if (node == NULL)
         return;
 
-    printf("Visiting: %s", node->nodeType);
+    printf("%s", node->nodeType);
 
     if (strlen(node->value) > 0)
         printf(" (%s)", node->value);

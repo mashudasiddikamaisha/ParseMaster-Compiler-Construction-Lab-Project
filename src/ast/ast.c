@@ -24,7 +24,7 @@ ASTNode *createNode(const char *nodeType,
         strcpy(newNode->value, value);
     else
         strcpy(newNode->value, "");
-        
+
     strcpy(newNode->scope, "");
 
     newNode->left = left;
@@ -34,14 +34,6 @@ ASTNode *createNode(const char *nodeType,
     return newNode;
 }
 
-/* Helper function for indentation */
-// static void printIndent(int level)
-// {
-//     int i;
-
-//     for (i = 0; i < level; i++)
-//         printf("    ");
-// }
 static void printPrefix(int level)
 {
     int i;
@@ -71,25 +63,7 @@ static const char *displayNodeName(const char *name)
 
     return name;
 }
-/* Print AST recursively */
-// void printAST(ASTNode *root, int level)
-// {
-//     if (root == NULL)
-//         return;
 
-//     printIndent(level);
-
-//     if (strlen(root->value) > 0)
-//         printf("%s : %s\n", root->nodeType, root->value);
-//     else
-//         printf("%s\n", root->nodeType);
-
-//     printAST(root->left, level + 1);
-//     printAST(root->right, level + 1);
-
-//     if (root->next != NULL)
-//         printAST(root->next, level);
-// }
 
 void printAST(ASTNode *root, int level)
 {
@@ -103,10 +77,8 @@ void printAST(ASTNode *root, int level)
 
     if (strlen(root->value) > 0)
         printf("%s : %s\n", root->nodeType, root->value);
-        // printf("%s : %s\n", displayNodeName(root->nodeType), root->value);
     else
         printf("%s\n", root->nodeType);
-        // printf("%s\n", displayNodeName(root->nodeType));
 
     printAST(root->left, level + 1);
     printAST(root->right, level + 1);

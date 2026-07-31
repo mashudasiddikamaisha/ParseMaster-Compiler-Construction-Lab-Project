@@ -136,22 +136,14 @@ declaration
         ASTNode *idNode = createNode("Identifier", $2, NULL, NULL);
         strcpy(idNode->scope, currentScope);
         $$ = createNode("Declaration", "", $1, idNode);
-        
-        char *parent;
-
-if (scopeCounter == 0)
-    parent = "none";
-else
-    parent = previousScope[scopeCounter - 1];
-
 
         insertSymbol(
-    &symbolTable,
-    $2,
-    $1->value,
-    yylineno,
-    currentScope
-);
+            &symbolTable,
+            $2,
+            $1->value,
+            yylineno,
+            currentScope
+        );
     }
     ;
 

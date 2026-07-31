@@ -74,7 +74,10 @@ MULTI_COMMENT      "/*"([^*]|\*+[^*/])*\*+"/"
 [ \t\r\n]+      ;
 
 . {
-    printf("LEXICAL ERROR: Invalid character '%s'\n", yytext);
+    fprintf(stderr,
+            "LEXICAL ERROR at line %d: Invalid character '%s'\n",
+            yylineno,
+            yytext);
 }
 
 %%
