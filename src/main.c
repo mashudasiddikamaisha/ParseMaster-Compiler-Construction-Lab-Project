@@ -1,8 +1,10 @@
+
 #include <stdio.h>
 
 #include "ast/ast.h"
 #include "symbol_table/symbol_table.h"
 #include "semantic/semantic.h"
+#include "tac/tac.h"
 
 extern int yyparse(void);
 extern ASTNode *root;
@@ -21,18 +23,13 @@ int main()
 
         printf("\n===== ABSTRACT SYNTAX TREE =====\n");
         printAST(root, 0);
-
-        // /* Create symbol table */
-        // SymbolTable table;
-        // initSymbolTable(&table);
-
+        
         /* Perform semantic analysis */
         printf("\n===== SEMANTIC ANALYSIS =====\n");
         semanticAnalysis(root, &symbolTable);
 
-        /* Display symbol table */
-        // printSymbolTable(&symbolTable);
-
+        
+        generateTAC(root);
         freeAST(root);
     }
 

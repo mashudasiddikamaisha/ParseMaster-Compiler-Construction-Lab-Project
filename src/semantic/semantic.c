@@ -14,53 +14,6 @@ int findSymbol(SymbolTable *table, char name[], char scope[])
     return -1;
 }
 
-// int findVisibleSymbol(SymbolTable *table, char name[], char scope[])
-// {
-//     int index;
-
-//     /* First search in the current scope */
-//     index = findSymbol(table, name, scope);
-
-//     if (index != -1)
-//         return index;
-
-//     /* Then search in the global scope */
-//     index = findSymbol(table, name, "global");
-
-//     return index;
-// }
-
-// int findVisibleSymbol(SymbolTable *table, char name[], char scope[])
-// {
-//     char currentScope[20];
-
-//     strcpy(currentScope, scope);
-
-//     while (strcmp(currentScope, "none") != 0)
-//     {
-//         printf("Searching scope: %s\n", currentScope);
-//         int index = findSymbol(table, name, currentScope);
-
-//         if (index != -1)
-//             return index;
-
-//         // Find the parent scope
-//         for (int i = 0; i < table->count; i++)
-//         {
-//             if (strcmp(table->symbols[i].scope, currentScope) == 0)
-//             {
-//                 strcpy(currentScope, table->symbols[i].parentScope);
-//                 break;
-//             }
-//         }
-
-//         // If no parent was found, stop
-//         if (strcmp(currentScope, scope) == 0)
-//             break;
-//     }
-
-//     return -1;
-// }
 
 int findVisibleSymbol(SymbolTable *table, char name[], char scope[])
 {
@@ -262,7 +215,7 @@ if (strcmp(node->nodeType, "Assignment") == 0)
     {
         const char *variableType = table->symbols[index].type;
         const char *expressionType = getExpressionType(exprNode, table);
-        
+
         if (strcmp(expressionType, "unknown") != 0)
         {
             /*
