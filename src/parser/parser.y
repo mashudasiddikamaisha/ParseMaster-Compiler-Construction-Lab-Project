@@ -2,13 +2,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "src/ast/ast.h"
+#include "src/symbol_table/symbol_table.h"
 
 int yylex(void);
 void yyerror(const char *s);
 extern int yylineno;
+extern SymbolTable symbolTable;
 
 /* Root of the AST */
 ASTNode *root = NULL;
+
+/* Global Symbol Table */
+
+int scopeCounter = 0;
+char currentScope[20] = "global";
+char previousScope[20][20];
 %}
 
 /* ---------- TOKENS ---------- */
@@ -112,6 +120,8 @@ statement
         { $$ = $1; }
     | while_statement
         { $$ = $1; }
+    | block
+        { $$ = $1; }
     | error SEMICOLON
     {
         printf("Recovered from syntax error at line %d\n", yylineno);
@@ -124,8 +134,24 @@ declaration
     : type ID SEMICOLON
     {
         ASTNode *idNode = createNode("Identifier", $2, NULL, NULL);
-
+        strcpy(idNode->scope, currentScope);
         $$ = createNode("Declaration", "", $1, idNode);
+        
+        char *parent;
+
+if (scopeCounter == 0)
+    parent = "none";
+else
+    parent = previousScope[scopeCounter - 1];
+
+
+        insertSymbol(
+    &symbolTable,
+    $2,
+    $1->value,
+    yylineno,
+    currentScope
+);
     }
     ;
 
@@ -133,7 +159,7 @@ assignment
     : ID ASSIGN expression SEMICOLON
     {
         ASTNode *idNode = createNode("Identifier", $1, NULL, NULL);
-
+        strcpy(idNode->scope, currentScope);
         $$ = createNode("Assignment", "", idNode, $3);
     }
     ;
@@ -146,9 +172,22 @@ print_statement
     ;
 
 block
-    : LBRACE statement_list RBRACE
+    : LBRACE
     {
-        $$ = createNode("Block", "", $2, NULL);
+        strcpy(previousScope[scopeCounter], currentScope);
+
+        scopeCounter++;
+
+        sprintf(currentScope, "S%d", scopeCounter);
+    }
+    statement_list
+    RBRACE
+    {
+        $$ = createNode("Block", "", $3, NULL);
+
+        strcpy(currentScope, previousScope[scopeCounter - 1]);
+
+        scopeCounter--;
     }
     ;
 
@@ -261,6 +300,7 @@ expression
     | ID
     {
         $$ = createNode("Identifier", $1, NULL, NULL);
+        strcpy($$->scope, currentScope);
     }
     | INT_LITERAL
     {
