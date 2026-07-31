@@ -19,6 +19,7 @@ typedef struct SymbolTable
 } SymbolTable;
 
 // Functions
+int lookupSymbol(SymbolTable *table, char name[], char scope[]);
 
 void initSymbolTable(SymbolTable *table);
 

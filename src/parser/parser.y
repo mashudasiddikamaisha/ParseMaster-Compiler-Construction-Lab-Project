@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "src/ast/ast.h"
+#include "src/symbol_table/symbol_table.h"
 
 int yylex(void);
 void yyerror(const char *s);
@@ -9,6 +10,10 @@ extern int yylineno;
 
 /* Root of the AST */
 ASTNode *root = NULL;
+
+/* Global Symbol Table */
+SymbolTable symbolTable;
+int scopeLevel = 0;
 %}
 
 /* ---------- TOKENS ---------- */
@@ -126,6 +131,15 @@ declaration
         ASTNode *idNode = createNode("Identifier", $2, NULL, NULL);
 
         $$ = createNode("Declaration", "", $1, idNode);
+        char scopeName[20];
+        sprintf(scopeName, "%d", scopeLevel);
+        insertSymbol(
+            &symbolTable,
+            $2,              // variable name
+            $1->value,       // int / float / bool
+            yylineno,        // line number
+            scopeName         // scope (we'll improve this later)
+        );
     }
     ;
 
@@ -146,10 +160,17 @@ print_statement
     ;
 
 block
-    : LBRACE statement_list RBRACE
-    {
-        $$ = createNode("Block", "", $2, NULL);
-    }
+    : LBRACE
+      {
+          scopeLevel++;
+      }
+      statement_list
+      RBRACE
+      {
+          $$ = createNode("Block", "", $3, NULL);
+
+          scopeLevel--;
+      }
     ;
 
 if_statement

@@ -1,0 +1,11 @@
+int x;
+
+if (true)
+{
+    int y;
+
+    while (true)
+    {
+        int z;
+    }
+}

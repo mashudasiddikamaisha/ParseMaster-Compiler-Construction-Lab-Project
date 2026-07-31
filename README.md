@@ -5,7 +5,7 @@
 # Team Members
 
 | Name | Responsibilities | ID | GitHub |
-|------|------------------| ----- | ------ | 
+|------|------------------| ------------ | ------ | 
 | Mashuda Siddika Maisha | Lexer, Parser, Project Integration | 231-115-119 | [@mashudasiddikamaisha](https://github.com/mashudasiddikamaisha) |
 | Nusrath Jahan Nowshin | Abstract Syntax Tree (AST) , Symbol Table | 231-115-088 | [@Nowshin03](https://github.com/Nowshin03) |
 | Najmun Nahar | Semantic Analysis, Three Address Code (TAC) Generation | 231-115-112 | [@najmuntushi-hue](https://github.com/najmuntushi-hue) | 
