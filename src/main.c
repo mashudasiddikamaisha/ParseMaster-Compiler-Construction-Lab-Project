@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 #include "ast/ast.h"
 #include "symbol_table/symbol_table.h"
 
@@ -17,12 +18,23 @@ int main()
         printSymbolTable(&symbolTable);
 
         printf("\n===== ABSTRACT SYNTAX TREE =====\n");
-
         printAST(root, 0);
+
+        /* Create symbol table */
+        SymbolTable table;
+        initSymbolTable(&table);
+
+        /* Perform semantic analysis */
+        printf("\n===== SEMANTIC ANALYSIS =====\n");
+        semanticAnalysis(root, &table);
+
+        /* Display symbol table */
+        printSymbolTable(&table);
 
         freeAST(root);
     }
-    printf("Parsing completed.\n");
+
+    printf("\nParsing completed.\n");
 
     return 0;
 }
