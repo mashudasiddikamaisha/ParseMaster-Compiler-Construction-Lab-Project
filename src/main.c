@@ -1,9 +1,10 @@
+
 #include <stdio.h>
 
 #include "ast/ast.h"
 #include "semantic/semantic.h"
 #include "symboltable/symbol_table.h"
-
+#include "tac/tac.h"
 extern int yyparse(void);
 extern ASTNode *root;
 
@@ -28,7 +29,7 @@ int main()
 
         /* Display symbol table */
         printSymbolTable(&table);
-
+        generateTAC(root);
         freeAST(root);
     }
 
