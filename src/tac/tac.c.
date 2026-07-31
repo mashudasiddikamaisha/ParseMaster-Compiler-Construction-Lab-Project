@@ -1,0 +1,10 @@
+void generateTAC(ASTNode *root)
+{
+    if (!root) return;
+
+    resetTAC();
+
+    printf("\n===== THREE ADDRESS CODE =====\n");
+    statements(root);
+    printf("==============================\n");
+}
