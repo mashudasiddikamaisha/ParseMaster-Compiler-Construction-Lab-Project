@@ -1,6 +1,9 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "src/ast/ast.h"
 #include "parser.tab.h"
 %}
 
@@ -30,10 +33,13 @@ MULTI_COMMENT      "/*"([^*]|\*+[^*/])*\*+"/"
 "true"          { return TRUE;}
 "false"         { return FALSE; }
 
-{FLOATNUM}      { return FLOAT_LITERAL; }
-{INTNUM}        { return INT_LITERAL; }
+{FLOATNUM}      { yylval.text = strdup(yytext);
+                  return FLOAT_LITERAL; }
+{INTNUM}        { yylval.text = strdup(yytext);
+                  return INT_LITERAL; }
 
-{ID}            { return ID; }
+{ID}            { yylval.text = strdup(yytext);
+                  return ID; }
 {SINGLE_COMMENT}   ;
 
 {MULTI_COMMENT}    ;

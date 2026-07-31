@@ -6,8 +6,8 @@ TARGET = compiler
 
 all: $(TARGET)
 
-$(TARGET): parser.tab.c lex.yy.c src/main.c
-	$(CC) parser.tab.c lex.yy.c src/main.c -lfl -o $(TARGET)
+$(TARGET): parser.tab.c lex.yy.c src/main.c src/ast/ast.c
+	$(CC) parser.tab.c lex.yy.c src/main.c src/ast/ast.c -lfl -o $(TARGET)
 
 parser.tab.c parser.tab.h: src/parser/parser.y
 	$(YACC) -d src/parser/parser.y
