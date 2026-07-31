@@ -1,5 +1,17 @@
 # ParseMaster - Compiler Construction Lab Project
 
+---
+
+# Team Members
+
+| Name | Responsibilities | ID | GitHub |
+|------|------------------| -- | ------ | 
+| Mashuda Siddika Maisha | Lexer, Parser, Project Integration | 231-115-119 | @mashudasiddikamaisha |
+| Nusrath Jahan Nowshin | Abstract Syntax Tree (AST) , Symbol Table | 231-115-088 | @Nowshin03 |
+| Najmun Nahar | Three Address Code (TAC) | 231-115-112 | @najmuntushi-hue
+
+---
+
 ## Project Summary
 
 ParseMaster is a simple compiler developed as part of the Compiler Construction Lab course. The compiler is implemented using **Flex** and **Bison** and supports a small custom programming language with basic programming constructs.
@@ -129,17 +141,7 @@ src/
 examples/
 ```
 
----
 
-# Team Members
-
-| Name | Responsibilities |
-|------|------------------|
-| Mashuda Siddika Maisha | Lexer, Parser, Project Integration |
-| Nusrath Jahan Nowshin | Abstract Syntax Tree (AST) | Symbol Table |
-| Najmun Nahar | 
-
----
 
 # Technologies Used
 
