@@ -2,10 +2,12 @@
 
 #include "ast/ast.h"
 #include "symbol_table/symbol_table.h"
+#include "semantic/semantic.h"
 
 extern int yyparse(void);
 extern ASTNode *root;
 extern SymbolTable symbolTable;
+SymbolTable symbolTable;
 
 int main()
 {
@@ -20,16 +22,16 @@ int main()
         printf("\n===== ABSTRACT SYNTAX TREE =====\n");
         printAST(root, 0);
 
-        /* Create symbol table */
-        SymbolTable table;
-        initSymbolTable(&table);
+        // /* Create symbol table */
+        // SymbolTable table;
+        // initSymbolTable(&table);
 
         /* Perform semantic analysis */
         printf("\n===== SEMANTIC ANALYSIS =====\n");
-        semanticAnalysis(root, &table);
+        semanticAnalysis(root, &symbolTable);
 
         /* Display symbol table */
-        printSymbolTable(&table);
+        // printSymbolTable(&symbolTable);
 
         freeAST(root);
     }

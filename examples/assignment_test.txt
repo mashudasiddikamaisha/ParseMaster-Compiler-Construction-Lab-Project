@@ -1,0 +1,5 @@
+int x;
+bool flag;
+
+x = true;
+flag = 5;

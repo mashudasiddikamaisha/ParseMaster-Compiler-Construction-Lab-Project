@@ -7,13 +7,16 @@
 int yylex(void);
 void yyerror(const char *s);
 extern int yylineno;
+extern SymbolTable symbolTable;
 
 /* Root of the AST */
 ASTNode *root = NULL;
 
 /* Global Symbol Table */
-SymbolTable symbolTable;
-int scopeLevel = 0;
+
+int scopeCounter = 0;
+char currentScope[20] = "global";
+char previousScope[20][20];
 %}
 
 /* ---------- TOKENS ---------- */
@@ -117,6 +120,8 @@ statement
         { $$ = $1; }
     | while_statement
         { $$ = $1; }
+    | block
+        { $$ = $1; }
     | error SEMICOLON
     {
         printf("Recovered from syntax error at line %d\n", yylineno);
@@ -129,17 +134,24 @@ declaration
     : type ID SEMICOLON
     {
         ASTNode *idNode = createNode("Identifier", $2, NULL, NULL);
-
+        strcpy(idNode->scope, currentScope);
         $$ = createNode("Declaration", "", $1, idNode);
-        char scopeName[20];
-        sprintf(scopeName, "%d", scopeLevel);
+        
+        char *parent;
+
+if (scopeCounter == 0)
+    parent = "none";
+else
+    parent = previousScope[scopeCounter - 1];
+
+
         insertSymbol(
-            &symbolTable,
-            $2,              // variable name
-            $1->value,       // int / float / bool
-            yylineno,        // line number
-            scopeName         // scope (we'll improve this later)
-        );
+    &symbolTable,
+    $2,
+    $1->value,
+    yylineno,
+    currentScope
+);
     }
     ;
 
@@ -147,7 +159,7 @@ assignment
     : ID ASSIGN expression SEMICOLON
     {
         ASTNode *idNode = createNode("Identifier", $1, NULL, NULL);
-
+        strcpy(idNode->scope, currentScope);
         $$ = createNode("Assignment", "", idNode, $3);
     }
     ;
@@ -161,16 +173,22 @@ print_statement
 
 block
     : LBRACE
-      {
-          scopeLevel++;
-      }
-      statement_list
-      RBRACE
-      {
-          $$ = createNode("Block", "", $3, NULL);
+    {
+        strcpy(previousScope[scopeCounter], currentScope);
 
-          scopeLevel--;
-      }
+        scopeCounter++;
+
+        sprintf(currentScope, "S%d", scopeCounter);
+    }
+    statement_list
+    RBRACE
+    {
+        $$ = createNode("Block", "", $3, NULL);
+
+        strcpy(currentScope, previousScope[scopeCounter - 1]);
+
+        scopeCounter--;
+    }
     ;
 
 if_statement
@@ -282,6 +300,7 @@ expression
     | ID
     {
         $$ = createNode("Identifier", $1, NULL, NULL);
+        strcpy($$->scope, currentScope);
     }
     | INT_LITERAL
     {

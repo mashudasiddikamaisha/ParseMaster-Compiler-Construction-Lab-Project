@@ -9,6 +9,7 @@ typedef struct ASTNode
 {
     char nodeType[50];      // Assignment, If, While, Identifier, etc.
     char value[100];         // Variable name, literal value, operator
+    char scope[20];      
 
     struct ASTNode *left;
     struct ASTNode *right;

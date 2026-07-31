@@ -1,6 +1,7 @@
 int x;
 
-if(x)
+x = 10;
+
 {
     print x;
 }

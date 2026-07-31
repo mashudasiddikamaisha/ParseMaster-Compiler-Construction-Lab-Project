@@ -71,3 +71,5 @@ void printSymbolTable(SymbolTable *table)
     }
 
 }
+
+

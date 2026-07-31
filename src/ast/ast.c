@@ -24,6 +24,8 @@ ASTNode *createNode(const char *nodeType,
         strcpy(newNode->value, value);
     else
         strcpy(newNode->value, "");
+        
+    strcpy(newNode->scope, "");
 
     newNode->left = left;
     newNode->right = right;

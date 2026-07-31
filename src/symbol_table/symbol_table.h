@@ -1,6 +1,8 @@
 #ifndef SYMBOL_TABLE_H
 #define SYMBOL_TABLE_H
+
 #define MAX_SYMBOLS 100
+
 
 typedef struct Symbol
 {
@@ -8,8 +10,9 @@ typedef struct Symbol
     char type[20];
     int line;
     char scope[20];
-    
+
 } Symbol;
+
 
 typedef struct SymbolTable
 {
@@ -18,7 +21,9 @@ typedef struct SymbolTable
 
 } SymbolTable;
 
+
 // Functions
+
 int lookupSymbol(SymbolTable *table, char name[], char scope[]);
 
 void initSymbolTable(SymbolTable *table);
@@ -27,7 +32,8 @@ void insertSymbol(SymbolTable *table,
                   char name[],
                   char type[],
                   int line,
-                  char scope[]);                  
+                  char scope[]);
+
 void printSymbolTable(SymbolTable *table);
 
 
