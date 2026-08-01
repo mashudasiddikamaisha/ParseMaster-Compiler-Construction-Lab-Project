@@ -1,0 +1,122 @@
+Parsing started...
+Program parsed successfully!
+
+===== SYMBOL TABLE =====
+Name    Type    Line    Scope
+x       int     1       global
+y       int     2       global
+flag    bool    3       global
+
+===== ABSTRACT SYNTAX TREE =====
+Declaration
+│   ├── Type : int
+│   ├── Identifier : x
+Declaration
+│   ├── Type : int
+│   ├── Identifier : y
+Declaration
+│   ├── Type : bool
+│   ├── Identifier : flag
+Assignment
+│   ├── Identifier : x
+│   ├── IntLiteral : 10
+Assignment
+│   ├── Identifier : y
+│   ├── IntLiteral : 0
+Assignment
+│   ├── Identifier : flag
+│   ├── BoolLiteral : true
+While
+│   ├── GT
+│   │   ├── Identifier : x
+│   │   ├── IntLiteral : 0
+│   ├── Block
+│   │   ├── Assignment
+│   │   │   ├── Identifier : y
+│   │   │   ├── PLUS
+│   │   │   │   ├── Identifier : y
+│   │   │   │   ├── Identifier : x
+│   │   ├── Assignment
+│   │   │   ├── Identifier : x
+│   │   │   ├── MINUS
+│   │   │   │   ├── Identifier : x
+│   │   │   │   ├── IntLiteral : 1
+IfElse
+│   ├── EQ
+│   │   ├── Identifier : flag
+│   │   ├── BoolLiteral : true
+│   ├── Block
+│   │   ├── Print
+│   │   │   ├── Identifier : y
+│   ├── Block
+│   │   ├── Print
+│   │   │   ├── Identifier : x
+
+===== SEMANTIC ANALYSIS =====
+Declaration
+Type (int)
+Identifier (x)
+Declaration
+Type (int)
+Identifier (y)
+Declaration
+Type (bool)
+Identifier (flag)
+Assignment
+Identifier (x)
+IntLiteral (10)
+Assignment
+Identifier (y)
+IntLiteral (0)
+Assignment
+Identifier (flag)
+BoolLiteral (true)
+While
+GT
+Identifier (x)
+IntLiteral (0)
+Block
+Assignment
+Identifier (y)
+PLUS
+Identifier (y)
+Identifier (x)
+Assignment
+Identifier (x)
+MINUS
+Identifier (x)
+IntLiteral (1)
+IfElse
+EQ
+Identifier (flag)
+BoolLiteral (true)
+Block
+Print
+Identifier (y)
+Block
+Print
+Identifier (x)
+
+===== THREE ADDRESS CODE =====
+x = 10
+y = 0
+flag = true
+L1:
+t1 = x > 0
+ifFalse t1 goto L2
+t2 = y + x
+y = t2
+t3 = x - 1
+x = t3
+goto L1
+L2:
+t4 = flag == true
+ifFalse t4 goto L3
+print y
+goto L4
+L3:
+print x
+L4:
+==============================
+
+Parsing completed.

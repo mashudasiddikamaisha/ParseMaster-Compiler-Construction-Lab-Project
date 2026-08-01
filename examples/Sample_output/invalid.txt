@@ -1,0 +1,47 @@
+Parsing started...
+Syntax Error at line 5: syntax error
+Recovered from syntax error at line 5
+Syntax Error at line 9: syntax error
+Recovered from syntax error at line 10
+Syntax Error at line 11: syntax error
+Recovered from syntax error at line 13
+Program parsed successfully!
+
+===== SYMBOL TABLE =====
+Name    Type    Line    Scope
+x       int     1       global
+flag    bool    2       global
+
+===== ABSTRACT SYNTAX TREE =====
+Declaration
+│   ├── Type : int
+│   ├── Identifier : x
+Declaration
+│   ├── Type : bool
+│   ├── Identifier : flag
+Assignment
+│   ├── Identifier : flag
+│   ├── PLUS
+│   │   ├── Identifier : x
+│   │   ├── IntLiteral : 5
+
+===== SEMANTIC ANALYSIS =====
+Declaration
+Type (int)
+Identifier (x)
+Declaration
+Type (bool)
+Identifier (flag)
+Assignment
+Semantic Error (line 2): Cannot assign int to bool variable 'flag'.
+Identifier (flag)
+PLUS
+Identifier (x)
+IntLiteral (5)
+
+===== THREE ADDRESS CODE =====
+t1 = x + 5
+flag = t1
+==============================
+
+Parsing completed.
